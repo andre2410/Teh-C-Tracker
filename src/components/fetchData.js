@@ -1,42 +1,58 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import './styles.css';
 
-const localLink = 'http://localhost:3100/api/data';
+function GetData() {
+  const [data, setData] = useState(null);
+  const dataLink = 'https://teh-c-tracker-21d564b188f2.herokuapp.com/api/data'; //VERY SAFE INDEED
 
-const GetData = () => {
-    const [data, setData] = useState([]);
-  
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axios.get(localLink); //local for now
-          setData(response.data);
-        } catch (error) {
-          console.error('Error fetching data:', error);
+  useEffect(() => {
+    fetch(dataLink)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
         }
-      };
-  
-      fetchData();
-    }, []);
+        return response.json();
+      })
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, [dataLink]);
 
-    return (
-        <div>
-          <h1>Teh C Tracker</h1>
-          <ul>
-            {data.map(item => (
-              <li key={item._id}>
-                <p>{item.name}</p>
-                <p>{item.cost}</p>
-                <p>{item.date}</p>
-                <p>{item.description}</p>
-                <p>{item.type}</p>
-                <p>{item.rating}</p>
-                <p>{item.address}</p>
-              </li>
+  return (
+      <div>
+        <h1>Teh C Tracker</h1>
+        {data ? (
+          <div>
+            {data.map((item, index) => (
+              <div key={index} className="item-container">
+                <div>
+                  <strong>{item.name}</strong>
+                </div>
+                <div>
+                  {item.description}
+                </div>
+                <div>
+                  <strong>Type:</strong> {item.type}
+                </div>
+                <div>
+                  <strong>Price:</strong> {item.cost}
+                </div>
+                <div>
+                  <strong>Review Date:</strong> {item.date}
+                </div>
+                <div>
+                  <strong>Rating:</strong> {item.rating}
+                </div>
+                <div>
+                  <strong>Address:</strong> {item.address}
+                </div>
+              </div>
             ))}
-          </ul>
-        </div>
-      );
-    };
-    
-    export default GetData;
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
+    );
+}
+
+export default GetData;
