@@ -5,7 +5,6 @@ import Footer from './components/Footer';
 
 import './styles/layout.css';
 import './styles/theme.css';
-import './styles/cards.css';
 import config from './config/config'
 
 function App () {
@@ -25,17 +24,20 @@ function App () {
   }, [dataLink]);
 
   return (
-    <div className="app-container">
-      <Header />
-      {data ? (
-        <div className="teh-cards-container">
-          {data.map((item, index) => (
-            <TehCard key={index} item={item} />
-          ))}
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+    <div>
+      <Header />     
+      <aside>
+      <a id="a.button" className="button">Home</a>
+      </aside>
+        {data ? (
+          <div>
+            {data.map((item, index) => (
+              <TehCard key={index} item={item} />
+            ))}
+          </div>
+        ) : (
+          <p>Loading...</p>
+        )}
       <Footer />
     </div>
   );
