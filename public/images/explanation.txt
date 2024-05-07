@@ -1,0 +1,2 @@
+Im just trying to make images load easier for now, ideally this should be in the backend.
+If I am using multer, it would be easier to upload images to here hahaha.
