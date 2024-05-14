@@ -3,9 +3,9 @@
 
 /* theme */
 :root {
-    --theme-primary-dark: #1769aa;
-    --theme-primary: #2196f3;
-    --theme-primary-light: #4dabf5;
+    --theme-primary-dark: #DC7633;
+    --theme-primary: #E59866;
+    --theme-primary-light: #EDBB99;
 }
 body {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;

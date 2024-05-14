@@ -7,9 +7,10 @@ import './styles/layout.css';
 import './styles/theme.css';
 import config from './config/config'
 
-function App () {
+const App = () => {
   const [data, setData] = useState(null);
-  const dataLink = config.teh_C_API_Get;
+  // const dataLink = config.teh_C_API_Get;
+  const dataLink = config.local_Get;
 
   useEffect(() => {
     fetch(dataLink)
@@ -24,20 +25,26 @@ function App () {
   }, [dataLink]);
 
   return (
-    <div>
-      <Header />     
-      <aside>
-      <a id="a.button" className="button">Home</a>
-      </aside>
-        {data ? (
-          <div>
-            {data.map((item, index) => (
-              <TehCard key={index} item={item} />
-            ))}
-          </div>
-        ) : (
-          <p>Loading...</p>
-        )}
+    <div className='container'>
+      <header>
+        <Header />
+      </header>
+      <div className="content">
+        <aside className='aside' >
+          <a id="a.button" className="button" href="/home">Home</a>
+        </aside>
+        <main>
+          {data ? (
+            <div>
+              {data.map((item, index) => (
+                <TehCard key={index} item={item} />
+              ))}
+            </div>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </main>
+      </div>
       <Footer />
     </div>
   );
